@@ -22,7 +22,7 @@ export default class Renderer {
         })
 
         this.instance.outputEncoding = THREE.sRGBEncoding
-        this.instance.setClearColor('red')
+        this.instance.setClearColor('#B19D86') 
         this.instance.setSize(this.sizes.width, this.sizes.height)
         this.instance.setPixelRatio(this.sizes.pixelRatio)
     }
