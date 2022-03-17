@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import {gsap} from 'gsap'
 import Experience from "../Experience";
 
-import JoyStick from '../Utils/joy'
+import JoyStick from './joy'
 
 
 
@@ -157,7 +157,6 @@ export default class Controls {
     }
 
     update(){
-        //this.animation.mixer.update(this.time.delta / 1000)
 
         if(this.usingJoystick){
             this.handleJoystick(this.joy.GetDir())

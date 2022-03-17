@@ -10,10 +10,10 @@ import Camera from './Camera.js'
 import Renderer from './Renderer.js'
 import World from './World/World.js'
 import Drone from './World/Drone.js'
-import Controls from './World/Controls.js'
+import Controls from './Utils/Controls.js'
 import Resources from './Utils/Resources.js'
-import Targets from './Utils/Targets.js'
-import BuildingLogos from './Utils/BuildingLogos.js'
+import Targets from './World/Targets.js'
+import BuildingLogos from './World/BuildingLogos.js'
 import SignalStrength from './Utils/SignalStrength.js'
 import RayCaster from './Utils/RayCaster.js'
 
@@ -78,15 +78,11 @@ export default class Experience {
     }
 
     resize(){
-        console.log('resize triggered');
         this.camera.resizeCamera()
         this.renderer.resize()
     }
 
     tick(){
-        console.log('tick occured');
-        // this.camera.updateControls()
-        // this.world.update()
         this.resources.items.borderTexture.offset.x = this.time.elapsed
         this.renderer.update()
         this.drone.update()
@@ -98,35 +94,29 @@ export default class Experience {
 
     }
 
-    // destroy(){
-    //     this.sizes.off('resize')
-    //     this.time.off('tick')
+    destroy(){
+        this.sizes.off('resize')
+        this.time.off('tick')
 
-    //     // traverse the whole scene
-    //     this.scene.traverse(child => {
+        // traverse the whole scene
+        this.scene.traverse(child => {
 
-    //         if(child instanceof THREE.Mesh){
+            if(child instanceof THREE.Mesh){
 
-    //             // get rid of geometries
-    //             child.geometry.dispose()
+                // get rid of geometries
+                child.geometry.dispose()
 
-    //             // go through each material item and check if the subitem has a dispose method
-    //             for(const key in child.material){
-    //                 const value = child.material[key]
+                // go through each material item and check if the subitem has a dispose method
+                for(const key in child.material){
+                    const value = child.material[key]
 
-    //                 if(value && typeof value.dispose === 'function'){
-    //                     value.dispose()
-    //                 }
-    //             }
-    //         }
+                    if(value && typeof value.dispose === 'function'){
+                        value.dispose()
+                    }
+                }
+            }
 
-    //     })
-
-    //     this.camera.controls.dispose()
-    //     this.renderer.instance.dispose()
-        
-    //     if(this.debug.active){
-    //         this.debug.ui.destroy()
-    //     }
-    // }
+        })
+        this.renderer.instance.dispose()
+    }
 }
